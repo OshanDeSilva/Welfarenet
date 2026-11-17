@@ -1,0 +1,52 @@
+# Ignore build output
+target/
+!target/*.jar
+
+# Ignore IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.project
+.classpath
+
+# Ignore version control
+.git/
+.gitignore
+
+# Ignore Maven wrapper (we'll use the container's Maven)
+.mvn/
+mvnw
+mvnw.cmd
+
+# Ignore test files
+src/test/
+
+# Ignore QR codes directory (generated files)
+qr-codes/
+
+# Ignore environment files
+.env
+.env.local
+.env.*.local
+
+# Ignore documentation
+*.md
+!README.md
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.swp
+*~
+

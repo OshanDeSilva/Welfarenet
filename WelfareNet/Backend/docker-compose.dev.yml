@@ -1,0 +1,42 @@
+version: '3.8'
+
+# Development configuration with hot reload and debugging
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: welfarenet-backend-dev
+    ports:
+      - "8080:8080"
+      - "5005:5005"  # Debug port
+    environment:
+      - DB_DATASOURCE=${DB_DATASOURCE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SERVER_PORT=8080
+      - MAIL_USER=${MAIL_USER}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRETACCESSKEY=${AWS_SECRETACCESSKEY}
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true
+      # Enable remote debugging
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xmx512m -Xms256m
+    env_file:
+      - .env
+    volumes:
+      # Mount source code for hot reload
+      - ./src:/app/src
+      - ./target:/app/target
+      - ./pom.xml:/app/pom.xml
+      - ./qr-codes:/app/qr-codes
+    networks:
+      - welfarenet-network
+    restart: unless-stopped
+
+networks:
+  welfarenet-network:
+    driver: bridge
+
